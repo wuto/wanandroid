@@ -1,0 +1,8 @@
+<!--pages/me/me.wxml-->
+<view class='view'>
+  <image class='headimage' src='../../images/head.jpg' bindtap='login'></image>
+  <text style='margin-bottom: 40px;width: auto;font-size: 16px;' bindtap='login'>{{username}}</text>
+</view>
+<view class='text_f_w_16' bindtap='collectList' bindtap='mycollect'>我的收藏</view>
+<view class='text_f_w_16' bindtap='about'>关于我们</view>
+<view wx:if="{{username != '未登录'}}" class='text_f_w_16'  bindtap='loginout'>退出登陆</view>
