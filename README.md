@@ -1,23 +1,21 @@
-# wanandroid
-基于鸿洋大神的玩android开放API完成的《玩android》微信小程序版本，一起来学习小程序开发吧。
-
-### 目前文章详情，使用的是复制链接到剪切板。因为个人小程序不支持打开外部链接。本人也是很无奈啊。没办法，个人的小程序限制太多，如果可以的话，还是尽量搞一个企业账号玩玩吧！我正在准备注册一个“个体工商户”的小程序账户，等注册成功了，再把文章详情的外部链接加上试一试。
-
-### 由于小程序上线必须要求服务器域名只支持https协议，所以我将玩android的api数据在我本人的服务器上转发了一下。转发的接口地址，在最下面。
-
-**小程序目前正在上线审核中...这两天估计就能通过，就可以扫码体验了**
-
+# 1、小程序名称：玩androids
+ 基于鸿洋大神的玩android开放API完成的《玩android》微信小程序版本，一起来学习小程序开发吧。
+# 2、小程序码：
+目前正在上线审核中...这两天估计就能通过，到时候就可以扫码体验了。
 ![小程序码](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/gh_de1f6e6fea7e_258.jpg)
-
+# 3、小程序完成情况说明：
+ 目前文章详情，使用的是复制链接到剪切板。因为个人小程序不支持打开外部链接。本人也是很无奈啊。没办法，个人的小程序限制太多，如果可以的话，还是尽量搞一个企业账号玩玩吧！我正在准备注册一个“个体工商户”的小程序账户，等注册成功了，再把文章详情的外部链接加上试一试。
+# 4、小程序界面
 ![首页](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/%E9%A6%96%E9%A1%B5.png)     ![热搜](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/%E7%83%AD%E6%90%9C.png)
-
 ![体系](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/%E4%BD%93%E7%B3%BB.png)     ![我的](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/%E6%88%91%E7%9A%84.png)
-
 ![文章列表](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8.png)     ![登录](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/%E7%99%BB%E5%BD%95.png)
+![体系](https://github.com/mtjsoft/wanandroid/blob/master/img-folder/%E9%A1%B9%E7%9B%AE.png)
 
+# 5、小程序上线接口：
+由于小程序上线必须要求服务器域名只支持https协议，所以我将玩android的api数据在我本人的服务器上转发了一下。
 ```
 /**
- * 玩android开放api，没有整理，凑合着也能看吧，呵呵
+ * 玩android开放api，
  * 本人服务器域名地址: https://www.mtjsoft.cn
  */
 @RestController
