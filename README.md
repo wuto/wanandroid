@@ -18,7 +18,7 @@
 由于小程序上线必须要求服务器域名只支持https协议，所以我将玩android的api数据在我本人的服务器上转发了一下。
 ```
 /**
- * 玩android开放api，
+ * 玩android开放api
  * 本人服务器域名地址: https://www.mtjsoft.cn
  */
 @RestController
@@ -128,7 +128,7 @@ public class WanAndroidApiController {
     @GetMapping(value = "/tree/list")
     public String treeList(@RequestParam(value = "pagernumber") int pagernumber, @RequestParam(value = "cid") String cid) throws Exception {
         //url
-        String url = "http://www.wanandroid.com/article/list/" + pagernumber + "/json?cid="+cid;
+        String url = "http://www.wanandroid.com/article/list/" + pagernumber + "/json?cid=" + cid;
         //get请求
         HttpMethod method = HttpMethod.GET;
         // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
@@ -339,11 +339,11 @@ public class WanAndroidApiController {
         HttpMethod method = HttpMethod.POST;
         // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-        params.add("originId",originId);
+        params.add("originId", originId);
         return HttpClient.init().client(url, method, params, username);
     }
 
-    /**========================================7. 搜索=================================================================**/
+    /**========================================7.搜索=================================================================**/
     /**
      * 搜索
      *
@@ -368,14 +368,203 @@ public class WanAndroidApiController {
         return HttpClient.init().client(url, method, params, null);
     }
 
-    /**========================================8. HTML=================================================================**/
+    /**========================================8.HTML=================================================================**/
+    /**
+     * 获取html
+     *
+     * @param link
+     * @return
+     * @throws Exception
+     */
+
     @GetMapping(value = "/html")
-    public String html(@RequestParam(value = "link") String link)throws Exception{
+    public String html(@RequestParam(value = "link") String link) throws Exception {
         //get请求
         HttpMethod method = HttpMethod.GET;
         // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         return HttpClient.init().client(link, method, params, null);
+    }
+
+    /**========================================9.TODO工具=================================================================**/
+    /**
+     * 注意所有TODO相关都需要登录操作，建议登录将返回的cookie（其中包含账号、密码）持久化到本地即可。
+     **/
+    @GetMapping(value = "/todo/list")
+    public String todolist(@RequestParam(value = "typename") String typename, @RequestParam(value = "username") String username) throws Exception {
+        //url
+        String url = "http://wanandroid.com/lg/todo/list/" + typename + "/json";
+        //get请求
+        HttpMethod method = HttpMethod.GET;
+        // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        return HttpClient.init().client(url, method, params, username);
+    }
+
+    /**
+     * 新增一条Todo
+     *
+     * @param typename     方法：POST
+     *                 参数：
+     *                 title: 新增标题
+     *                 content: 新增详情
+     *                 date: 2018-08-01
+     *                 type: 0
+     * @param title
+     * @param content
+     * @param date
+     * @param username
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/todo/add")
+    public String todoadd(@RequestParam(value = "typename") String typename, @RequestParam(value = "title") String title,
+                          @RequestParam(value = "content") String content, @RequestParam(value = "date") String date,
+                          @RequestParam(value = "username") String username) throws Exception {
+        //url
+        String url = "http://www.wanandroid.com/lg/todo/add/json";
+        //get请求
+        HttpMethod method = HttpMethod.POST;
+        // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("title", title);
+        params.add("content", content);
+        params.add("date", date);
+        params.add("type", typename);
+        return HttpClient.init().client(url, method, params, username);
+    }
+
+    /**
+     * 更新一条Todo内容
+     *
+     * @param id
+     * @param typename
+     * @param title
+     * @param content
+     * @param date
+     * @param status
+     * @param username 方法：POST
+     *                 参数：
+     *                 id: 拼接在链接上，为唯一标识
+     *                 title: 更新标题
+     *                 content: 新增详情
+     *                 date: 2018-08-01
+     *                 status: 0 // 0为未完成，1为完成
+     *                 type: 0
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/todo/update")
+    public String todoupdate(@RequestParam(value = "id") String id, @RequestParam(value = "typename") String typename, @RequestParam(value = "title") String title,
+                             @RequestParam(value = "content") String content, @RequestParam(value = "date") String date, @RequestParam(value = "status") String status,
+                             @RequestParam(value = "username") String username) throws Exception {
+        //url
+        String url = "http://www.wanandroid.com/lg/todo/update/" + id + "/json";
+        //get请求
+        HttpMethod method = HttpMethod.POST;
+        // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("title", title);
+        params.add("content", content);
+        params.add("date", date);
+        params.add("type", typename);
+        params.add("status", status);
+        return HttpClient.init().client(url, method, params, username);
+    }
+
+    /**
+     * 删除一条Todo
+     *
+     * @param id
+     * @param username 方法：POST
+     *                 参数：
+     *                 id: 拼接在链接上，为唯一标识
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/todo/delete")
+    public String tododelete(@RequestParam(value = "id") String id, @RequestParam(value = "username") String username) throws Exception {
+        //url
+        String url = "http://www.wanandroid.com/lg/todo/delete/" + id + "/json";
+        //get请求
+        HttpMethod method = HttpMethod.POST;
+        // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        return HttpClient.init().client(url, method, params, username);
+    }
+
+
+    /**
+     * 仅更新完成状态Todo
+     *
+     * @param id
+     * @param status
+     * @param username 方法：POST
+     *                 参数：
+     *                 id: 拼接在链接上，为唯一标识
+     *                 status: 0或1，传1代表未完成到已完成，反之则反之。
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/todo/done")
+    public String tododone(@RequestParam(value = "id") String id, @RequestParam(value = "status") String status,
+                           @RequestParam(value = "username") String username) throws Exception {
+        //url
+        String url = "http://www.wanandroid.com/lg/todo/done/" + id + "/json";
+        //get请求
+        HttpMethod method = HttpMethod.POST;
+        // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("status", status);
+        return HttpClient.init().client(url, method, params, username);
+    }
+
+    /**
+     * 未完成Todo列表
+     *
+     * @param typename
+     * @param pagernumber
+     * @param username    方法：POST
+     *                    参数：
+     *                    类型：类型拼接在链接上，目前支持0,1,2,3
+     *                    页码: 拼接在链接上，从1开始；
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/todo/listnotdo")
+    public String listnotdo(@RequestParam(value = "typename") String typename, @RequestParam(value = "pagernumber") int pagernumber,
+                            @RequestParam(value = "username") String username) throws Exception {
+        //url
+        String url = "http://www.wanandroid.com/lg/todo/listnotdo/" + typename + "/json/" + pagernumber;
+        //get请求
+        HttpMethod method = HttpMethod.POST;
+        // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        return HttpClient.init().client(url, method, params, username);
+    }
+
+    /**
+     * 已完成Todo列表
+     *
+     * @param typename
+     * @param pagernumber
+     * @param username    方法：POST
+     *                    参数：
+     *                    类型：类型拼接在链接上，目前支持0,1,2,3
+     *                    页码: 拼接在链接上，从1开始；
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/todo/listdone")
+    public String listdone(@RequestParam(value = "typename") String typename, @RequestParam(value = "pagernumber") int pagernumber,
+                            @RequestParam(value = "username") String username) throws Exception {
+        //url
+        String url = "http://www.wanandroid.com/lg/todo/listdone/" + typename + "/json/" + pagernumber;
+        //get请求
+        HttpMethod method = HttpMethod.POST;
+        // 封装参数，千万不要替换为Map与HashMap，否则参数无法传递
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        return HttpClient.init().client(url, method, params, username);
     }
 }
 ```
